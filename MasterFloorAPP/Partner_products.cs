@@ -9,10 +9,9 @@
 
 namespace MasterFloorAPP
 {
-    using MasterFloorAPP.Pages;
     using System;
     using System.Collections.Generic;
-
+    
     public partial class Partner_products
     {
         public int ID { get; set; }
@@ -21,8 +20,8 @@ namespace MasterFloorAPP
         public Nullable<int> Quantity { get; set; }
         public Nullable<System.DateTime> SaleDATE { get; set; }
         public Nullable<decimal> Discount { get; set; }
-
-        public virtual Partner Partner1 { get; set; }
-        public virtual Product Product1 { get; set; }
+    
+        public virtual Partners Partners { get; set; }
+        public virtual Products Products { get; set; }
     }
 }

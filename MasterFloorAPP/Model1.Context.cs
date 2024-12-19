@@ -22,23 +22,19 @@ namespace MasterFloorAPP
         }
         public static Entities GetContext()
         {
-            if ( _context == null )
+            if (_context == null)
             {
                 _context = new Entities();
             }
             return _context;
         }
-    
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            throw new UnintentionalCodeFirstException();
-        }
-    
+
         public virtual DbSet<Material_type> Material_type { get; set; }
         public virtual DbSet<Partner_products> Partner_products { get; set; }
         public virtual DbSet<Partner_type> Partner_type { get; set; }
-        public virtual DbSet<Partner> Partners { get; set; }
+        public virtual DbSet<Partners> Partners { get; set; }
         public virtual DbSet<Product_type> Product_type { get; set; }
-        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<Products> Products { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
     }
 }

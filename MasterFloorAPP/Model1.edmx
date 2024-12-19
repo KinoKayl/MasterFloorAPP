@@ -63,6 +63,16 @@
           <Property Name="Number" Type="char" MaxLength="10" Nullable="false" />
           <Property Name="MinCost" Type="decimal" Precision="10" Scale="2" />
         </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <Association Name="FK__Partner_p__Partn__440B1D61">
           <End Role="Partners" Type="Self.Partners" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -77,7 +87,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Partner_p__Produ__4316F928">
+        <Association Name="FK__Partner_p__Produ__4222D4EF">
           <End Role="Products" Type="Self.Products" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -105,7 +115,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Products__Type__3D5E1FD2">
+        <Association Name="FK__Products__Type__440B1D61">
           <End Role="Product_type" Type="Self.Product_type" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -126,11 +136,12 @@
           <EntitySet Name="Partners" EntityType="Self.Partners" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product_type" EntityType="Self.Product_type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Partner_p__Partn__440B1D61" Association="Self.FK__Partner_p__Partn__440B1D61">
             <End Role="Partners" EntitySet="Partners" />
             <End Role="Partner_products" EntitySet="Partner_products" />
           </AssociationSet>
-          <AssociationSet Name="FK__Partner_p__Produ__4316F928" Association="Self.FK__Partner_p__Produ__4316F928">
+          <AssociationSet Name="FK__Partner_p__Produ__4222D4EF" Association="Self.FK__Partner_p__Produ__4222D4EF">
             <End Role="Products" EntitySet="Products" />
             <End Role="Partner_products" EntitySet="Partner_products" />
           </AssociationSet>
@@ -138,7 +149,7 @@
             <End Role="Partner_type" EntitySet="Partner_type" />
             <End Role="Partners" EntitySet="Partners" />
           </AssociationSet>
-          <AssociationSet Name="FK__Products__Type__3D5E1FD2" Association="Self.FK__Products__Type__3D5E1FD2">
+          <AssociationSet Name="FK__Products__Type__440B1D61" Association="Self.FK__Products__Type__440B1D61">
             <End Role="Product_type" EntitySet="Product_type" />
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
@@ -166,8 +177,8 @@
           <Property Name="Quantity" Type="Int32" />
           <Property Name="SaleDATE" Type="DateTime" Precision="0" />
           <Property Name="Discount" Type="Decimal" Precision="3" Scale="2" />
-          <NavigationProperty Name="Partner1" Relationship="Self.FK__Partner_p__Partn__440B1D61" FromRole="Partner_products" ToRole="Partners" />
-          <NavigationProperty Name="Product1" Relationship="Self.FK__Partner_p__Produ__4316F928" FromRole="Partner_products" ToRole="Products" />
+          <NavigationProperty Name="Partners" Relationship="Self.FK__Partner_p__Partn__440B1D61" FromRole="Partner_products" ToRole="Partners" />
+          <NavigationProperty Name="Products" Relationship="Self.FK__Partner_p__Produ__4222D4EF" FromRole="Partner_products" ToRole="Products" />
         </EntityType>
         <EntityType Name="Partner_type">
           <Key>
@@ -177,7 +188,7 @@
           <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Partners" Relationship="Self.FK__Partners__Type__403A8C7D" FromRole="Partner_type" ToRole="Partners" />
         </EntityType>
-        <EntityType Name="Partner">
+        <EntityType Name="Partners">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -200,9 +211,9 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="RatioTypeProduct" Type="Double" />
-          <NavigationProperty Name="Products" Relationship="Self.FK__Products__Type__3D5E1FD2" FromRole="Product_type" ToRole="Products" />
+          <NavigationProperty Name="Products" Relationship="Self.FK__Products__Type__440B1D61" FromRole="Product_type" ToRole="Products" />
         </EntityType>
-        <EntityType Name="Product">
+        <EntityType Name="Products">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -211,11 +222,21 @@
           <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Number" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="MinCost" Type="Decimal" Precision="10" Scale="2" />
-          <NavigationProperty Name="Partner_products" Relationship="Self.FK__Partner_p__Produ__4316F928" FromRole="Products" ToRole="Partner_products" />
-          <NavigationProperty Name="Product_type" Relationship="Self.FK__Products__Type__3D5E1FD2" FromRole="Products" ToRole="Product_type" />
+          <NavigationProperty Name="Partner_products" Relationship="Self.FK__Partner_p__Produ__4222D4EF" FromRole="Products" ToRole="Partner_products" />
+          <NavigationProperty Name="Product_type" Relationship="Self.FK__Products__Type__440B1D61" FromRole="Products" ToRole="Product_type" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <Association Name="FK__Partner_p__Partn__440B1D61">
-          <End Role="Partners" Type="Self.Partner" Multiplicity="1">
+          <End Role="Partners" Type="Self.Partners" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="Partner_products" Type="Self.Partner_products" Multiplicity="*" />
@@ -228,8 +249,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Partner_p__Produ__4316F928">
-          <End Role="Products" Type="Self.Product" Multiplicity="1">
+        <Association Name="FK__Partner_p__Produ__4222D4EF">
+          <End Role="Products" Type="Self.Products" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="Partner_products" Type="Self.Partner_products" Multiplicity="*" />
@@ -246,7 +267,7 @@
           <End Role="Partner_type" Type="Self.Partner_type" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Partners" Type="Self.Partner" Multiplicity="*" />
+          <End Role="Partners" Type="Self.Partners" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Partner_type">
               <PropertyRef Name="ID" />
@@ -256,11 +277,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Products__Type__3D5E1FD2">
+        <Association Name="FK__Products__Type__440B1D61">
           <End Role="Product_type" Type="Self.Product_type" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Products" Type="Self.Product" Multiplicity="*" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product_type">
               <PropertyRef Name="ID" />
@@ -274,14 +295,15 @@
           <EntitySet Name="Material_type" EntityType="Self.Material_type" />
           <EntitySet Name="Partner_products" EntityType="Self.Partner_products" />
           <EntitySet Name="Partner_type" EntityType="Self.Partner_type" />
-          <EntitySet Name="Partners" EntityType="Self.Partner" />
+          <EntitySet Name="Partners" EntityType="Self.Partners" />
           <EntitySet Name="Product_type" EntityType="Self.Product_type" />
-          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="Products" EntityType="Self.Products" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <AssociationSet Name="FK__Partner_p__Partn__440B1D61" Association="Self.FK__Partner_p__Partn__440B1D61">
             <End Role="Partners" EntitySet="Partners" />
             <End Role="Partner_products" EntitySet="Partner_products" />
           </AssociationSet>
-          <AssociationSet Name="FK__Partner_p__Produ__4316F928" Association="Self.FK__Partner_p__Produ__4316F928">
+          <AssociationSet Name="FK__Partner_p__Produ__4222D4EF" Association="Self.FK__Partner_p__Produ__4222D4EF">
             <End Role="Products" EntitySet="Products" />
             <End Role="Partner_products" EntitySet="Partner_products" />
           </AssociationSet>
@@ -289,7 +311,7 @@
             <End Role="Partner_type" EntitySet="Partner_type" />
             <End Role="Partners" EntitySet="Partners" />
           </AssociationSet>
-          <AssociationSet Name="FK__Products__Type__3D5E1FD2" Association="Self.FK__Products__Type__3D5E1FD2">
+          <AssociationSet Name="FK__Products__Type__440B1D61" Association="Self.FK__Products__Type__440B1D61">
             <End Role="Product_type" EntitySet="Product_type" />
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
@@ -330,7 +352,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Partners">
-            <EntityTypeMapping TypeName="MasterFloorModel.Partner">
+            <EntityTypeMapping TypeName="MasterFloorModel.Partners">
               <MappingFragment StoreEntitySet="Partners">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
@@ -354,13 +376,24 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="MasterFloorModel.Product">
+            <EntityTypeMapping TypeName="MasterFloorModel.Products">
               <MappingFragment StoreEntitySet="Products">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Number" ColumnName="Number" />
                 <ScalarProperty Name="MinCost" ColumnName="MinCost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="MasterFloorModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -378,7 +411,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />

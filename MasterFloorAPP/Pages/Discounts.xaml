@@ -14,7 +14,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        <ListView Name="ListUser" Grid.Row="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"  SelectionChanged="ListUser_SelectionChanged">
+        <ListView Name="ListUser" Grid.Row="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" MouseDoubleClick="ListUser_SelectionChanged">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border BorderBrush="Black" BorderThickness="1" Margin="10">

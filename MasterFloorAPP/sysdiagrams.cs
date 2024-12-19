@@ -12,19 +12,12 @@ namespace MasterFloorAPP
     using System;
     using System.Collections.Generic;
     
-    public partial class Product_type
+    public partial class sysdiagrams
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Product_type()
-        {
-            this.Products = new HashSet<Products>();
-        }
-    
-        public int ID { get; set; }
-        public string Type { get; set; }
-        public Nullable<double> RatioTypeProduct { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Products> Products { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

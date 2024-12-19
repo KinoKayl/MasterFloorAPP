@@ -19,9 +19,9 @@ namespace MasterFloorAPP.Pages
         private static readonly Regex PhoneNumberRegex = new Regex(@"^\+?[1-9]\d{9,14}$"); // Для номера телефона с международным кодом
 
         private readonly Entities db; // Контекст базы данных
-        private readonly Partner currentPartner; // Текущий партнер, если редактирование
+        private readonly Partners currentPartner; // Текущий партнер, если редактирование
 
-        public AddPartner(Partner selectedPartner = null)
+        public AddPartner(Partners selectedPartner = null)
         {
             InitializeComponent();
             db = new Entities(); // Инициализация контекста базы данных
@@ -229,7 +229,7 @@ namespace MasterFloorAPP.Pages
                 }
                 else // Создание нового партнера
                 {
-                    var newPartner = new Partner
+                    var newPartner = new Partners
                     {
                         Type = (int)selectedType,
                         Name = NameOrganization,

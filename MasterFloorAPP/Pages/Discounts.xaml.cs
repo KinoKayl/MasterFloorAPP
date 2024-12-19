@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace MasterFloorAPP.Pages
 {
@@ -78,7 +79,7 @@ namespace MasterFloorAPP.Pages
             }
         }
 
-        private void ListUser_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ListUser_SelectionChanged(object sender, MouseButtonEventArgs e)
         {
             if (ListUser.SelectedItem != null)
             {
